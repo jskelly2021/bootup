@@ -3,7 +3,7 @@ using System;
 using System.Net;
 using Microsoft.Win32;
 using System.Diagnostics;
-using System.Net.Sockets;
+using DotNetEnv;
 using System.Runtime.Versioning;
 
 [SupportedOSPlatform("windows")] 
@@ -11,6 +11,12 @@ class Program
 {
     static void main()
     {
+        Env.Load();
+
+        string username = Environment.GetEnvironmentVariable("USERNAME") ?? throw new Exception("USERNAME not set");
+        string password = Environment.GetEnvironmentVariable("PASSWORD") ?? throw new Exception("PASSWORD not set");
+
+
         HttpListener listener = new HttpListener();
         listener.Prefixes.Add("http://localhost:8080/");
         listener.Start();

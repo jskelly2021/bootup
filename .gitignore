@@ -584,4 +584,7 @@ $RECYCLE.BIN/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 
+*/.env
+*config.json
+
 # End of https://www.toptal.com/developers/gitignore/api/rust,macos,swift,xcode,csharp,windows,visualstudiocode,swiftpackagemanager
