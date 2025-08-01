@@ -3,19 +3,24 @@ using System;
 using System.Net;
 using Microsoft.Win32;
 using System.Diagnostics;
-using DotNetEnv;
 using System.Runtime.Versioning;
+using Microsoft.Extensions.Configuration;
 
 [SupportedOSPlatform("windows")] 
 class Program
 {
-    static void main()
+    static void Main()
     {
-        Env.Load();
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(AppContext.BaseDirectory)
+            .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
 
-        string username = Environment.GetEnvironmentVariable("USERNAME") ?? throw new Exception("USERNAME not set");
-        string password = Environment.GetEnvironmentVariable("PASSWORD") ?? throw new Exception("PASSWORD not set");
+        IConfiguration config = builder.Build();
 
+        string username = config["Credentials:Username"] ?? throw new Exception("Username is missing from configuration.");
+        string password = config["Credentials:Password"] ?? throw new Exception("Password is missing from configuration.");
+        Console.WriteLine($"USERNAME: {username}");
+        Console.WriteLine($"PASSWORD: {password}");
 
         HttpListener listener = new HttpListener();
         listener.Prefixes.Add("http://localhost:8080/");
@@ -29,7 +34,7 @@ class Program
 
             if (request.RawUrl == "/login")
             {
-                EnableAutoLogon("YourUsername", "YourPassword");
+                EnableAutoLogon(username, password);
                 RestartComputer();
             }
 

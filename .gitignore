@@ -586,5 +586,5 @@ $RECYCLE.BIN/
 
 */.env
 *config.json
-
+*/appsettings.json
 # End of https://www.toptal.com/developers/gitignore/api/rust,macos,swift,xcode,csharp,windows,visualstudiocode,swiftpackagemanager
