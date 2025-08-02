@@ -23,7 +23,7 @@ class Program
         Console.WriteLine($"PASSWORD: {password}");
 
         HttpListener listener = new HttpListener();
-        listener.Prefixes.Add("http://*:80/autologger/663/test/login/");
+        listener.Prefixes.Add("http://+:8080/login/");
         listener.Start();
         Console.WriteLine("Listening for requests on port 8080");
 
@@ -32,7 +32,7 @@ class Program
             HttpListenerContext context = listener.GetContext();
             HttpListenerRequest request = context.Request;
 
-            if (request.RawUrl == "/autologger/663/test/login")
+            if (request.RawUrl == "/login")
             {
                 EnableAutoLogon(username, password);
                 RestartComputer();
