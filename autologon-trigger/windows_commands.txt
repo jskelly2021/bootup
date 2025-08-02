@@ -5,3 +5,4 @@ netsh http delete urlacl url=http://+:8080/login/
 netsh advfirewall firewall add rule name="BootUp HTTP Listener" dir=in action=allow protocol=TCP localport=8080 profile=private enable=yes
 netsh advfirewall firewall delete rule name="BootUp HTTP Listener"
 
+Unregister-ScheduledTask -TaskName "AutologonTrigger" -Confirm:$false
